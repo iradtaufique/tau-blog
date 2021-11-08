@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block post_section %}
+
     <!-- Post section -->
     <section class="post_section news_post">
         <div class="container">
+
+            {% if new_comment %}
+                <div class="alert alert-success" role="alert">
+                  <h2>Your comment has been Added Successfully!!</h2>
+                </div>
+            {% endif %}
+
             <div class="row post_section_inner">
                 <!-- Left_sidebar -->
-                <div class="col-lg-10">
+                <div class="col-lg-8">
                     <div class="news_left_sidebar">
                         <!-- News Item -->
                         <div class="news_item news_details">
@@ -45,7 +54,7 @@
                         <!-- =================Snippets for counting comments==================---->
                         <div class="comment_area">
                             {% with comments.count as total_comments %}
-                                <h2>Comment {{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+                                <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
                             {% endwith %}
 
                             <!-- ================= snippets for displaying all comments ==================---->
@@ -67,53 +76,35 @@
                                 {% empty %}
                                 <p>There are no Comment Yet.</p>
                             {% endfor %}
-
-                            {% if new_comment %}
-                                <h2>Your comment has been Added</h2>
-                            {% endif %}
                         </div>
+                        {# ====== Snippets for adding repply or comment to a post========#}
+                        <div class="leave_reply">
+                           <h2>Leave a Reply</h2>
+                            <form class="row login_from" method="post">
+                                {% csrf_token %}
+                                <div class="form-group col-6">
+                                    {{ comment_form.name|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-6">
+                                    {{ comment_form.email|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-12">
+                                    {{ comment_form.body|as_crispy_field }}
+                                </div>
 
-                        {% if new_comment %}
-                            <h2>Your comment has been Added</h2>
-                        {% else %}
-
-                            <!-- ================= snippets for adding comments ==================---->
-                        <h2>Add new Comments</h2>
-                        <form action="" method="post">
-                            {{ comment_form.as_p }}
-                            {% csrf_token %}
-                            <p><input type="Submit" value="Add Comment"></p>
-                        </form>
-
-
-
-
-
-{#                        <div class="leave_reply">#}
-{#                           <h2>Leave a Reply</h2>#}
-{#                            <form class="row login_from" method="post">#}
-{#                                <div class="form-group col-12">#}
-{#                                    <textarea class="form-control" id="message" name="message" placeholder="Your Comment"></textarea>#}
-{#                                </div>#}
-{#                                <div class="form-group col-12">#}
-{#                                    <input type="text" class="form-control" placeholder="Name">#}
-{#                                </div>#}
-{#                                <div class="form-group col-12">#}
-{#                                    <input type="email" class="form-control" name="email" placeholder="Email">#}
-{#                                </div>#}
-{#                                <div class="form-group larg_btn col-12">#}
-{#                                    <button class="sm_btn" type="submit">Submit Reply <i class="fa fa-arrow-right"></i></button>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-
-                    {% endif %}
-
+                                <div class="form-group larg_btn col-12">
+                                    <button class="sm_btn" type="submit">Submit Reply <i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
+            {% include 'includes/right_side_bar.html' %}
             </div>
         </div>
     </section>
+
 {% endblock %}
 
 

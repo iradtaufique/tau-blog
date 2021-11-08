@@ -26,8 +26,7 @@ def post_details(request, pk):
             """save the post"""
             # print(new_comment.post)
             new_comment.save()
-
-
+            comment_form = CommentForm()
     else:
         comment_form = CommentForm()
 
