@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block post_section %}
+    <!-- Post section -->
+    <section class="post_section news_post">
+        <div class="container">
+            <div class="row post_section_inner">
+                <!-- Left_sidebar -->
+                <div class="col-lg-10">
+                    <div class="news_left_sidebar">
+                        <!-- News Item -->
+                        <div class="news_item news_details">
+                            <h6><span>{{ single_post.created_at }}</span> <a href="#">Post by : {{ single_post.author }}</a> <a href="#" class="investing">{{ single_post.post_category }}</a></h6>
+                            <h3 class="news_heding">{{ single_post.title }}</h3>
+                            <img src="{{ single_post.post_image.url }}" width="720px" height="500px" alt="">
+                            <p class="fast_p">{{ single_post.post_content }}</p>
+                            <div class="share_row row">
+                                <div class="col-sm-6 share_area">
+                                    <ul>
+                                        <li>Share:</li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6 back_to"><a href="/"><i class="fa fa-arrow-left"></i>Back to blog</a></div>
+                            </div>
+                        </div>
+                        <div class="author_area">
+                            <h2>Author</h2>
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="{% static 'images/post/author-1.jpg' %}" alt="" class="rounded-bottom rounded-top">
+                                    <a href="#">{{ single_post.author}}</a>
+                                </div>
+                                <div class="media-body">
+                                    <h6>22 feb,2018</h6>
+                                    <p>This incident opened my eyes to the value of Insurance in general, so I decided to examine my personal and business insurance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- =================Snippets for counting comments==================---->
+                        <div class="comment_area">
+                            {% with comments.count as total_comments %}
+                                <h2>Comment {{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+                            {% endwith %}
+
+                            <!-- ================= snippets for displaying all comments ==================---->
+                            {% for comment in comments %}
+
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="{% static 'images/post/author-2.jpg' %}" alt="" class=" rounded-circle">
+                                        <a href="#">{{ comment.name }}</a>
+                                    </div>
+                                    <div class="media-body">
+                                        <p>{{ comment.body }}</p>
+                                        <h6>{{ comment.created }}</h6>
+                                        <a href="#" class="reply_btn">Reply</a>
+                                        <a href="#" class="text-info">Edit</a>
+                                        <a href="#" class="text-danger">Delete</a>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <p>There are no Comment Yet.</p>
+                            {% endfor %}
+
+                            {% if new_comment %}
+                                <h2>Your comment has been Added</h2>
+                            {% endif %}
+                        </div>
+
+                        {% if new_comment %}
+                            <h2>Your comment has been Added</h2>
+                        {% else %}
+
+                            <!-- ================= snippets for adding comments ==================---->
+                        <h2>Add new Comments</h2>
+                        <form action="" method="post">
+                            {{ comment_form.as_p }}
+                            {% csrf_token %}
+                            <p><input type="Submit" value="Add Comment"></p>
+                        </form>
+
+
+
+
+
+{#                        <div class="leave_reply">#}
+{#                           <h2>Leave a Reply</h2>#}
+{#                            <form class="row login_from" method="post">#}
+{#                                <div class="form-group col-12">#}
+{#                                    <textarea class="form-control" id="message" name="message" placeholder="Your Comment"></textarea>#}
+{#                                </div>#}
+{#                                <div class="form-group col-12">#}
+{#                                    <input type="text" class="form-control" placeholder="Name">#}
+{#                                </div>#}
+{#                                <div class="form-group col-12">#}
+{#                                    <input type="email" class="form-control" name="email" placeholder="Email">#}
+{#                                </div>#}
+{#                                <div class="form-group larg_btn col-12">#}
+{#                                    <button class="sm_btn" type="submit">Submit Reply <i class="fa fa-arrow-right"></i></button>#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+
+                    {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+
+
