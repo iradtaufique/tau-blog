@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block blog_list_tab %}
+    <div class="container">
+        <div class="pages_heder">
+            <h2>Delete Your Comment</h2>
+        </div>
+    </div>
+{% endblock %}
+{% block post_section %}
 
-</body>
-</html>
+    <div class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="col-7">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" class="text-center">
+                        <!-- Security token by Django -->
+                        {% csrf_token %}
+                        Are you want to delete this comment ? <br>
+                        <input type="submit" value="Yes" class="btn btn-danger btn-sm mt-3"/>
+                        <a href="/" class="btn btn-secondary btn-sm mt-3">Cancel </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

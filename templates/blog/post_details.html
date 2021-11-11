@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{#{% load blog_template_tags %}#}
 
 {% block post_section %}
 
@@ -41,7 +42,7 @@
                             <h2>Author</h2>
                             <div class="media">
                                 <div class="media-left">
-                                    <img src="{% static 'images/post/author-1.jpg' %}" alt="" class="rounded-bottom rounded-top">
+                                    <img src="{% static 'images/post/blank-person.jpg' %}" width="98" height="98" alt="" class="rounded-circle">
                                     <a href="#">{{ single_post.author}}</a>
                                 </div>
                                 <div class="media-body">
@@ -62,15 +63,20 @@
 
                                 <div class="media">
                                     <div class="media-left">
-                                        <img src="{% static 'images/post/author-2.jpg' %}" alt="" class=" rounded-circle">
+                                        <img src="{% static 'images/post/blank-person.jpg' %}" width="98" height="98" alt="" class=" rounded-circle">
                                         <a href="#">{{ comment.name }}</a>
                                     </div>
                                     <div class="media-body">
                                         <p>{{ comment.body }}</p>
-                                        <h6>{{ comment.created }}</h6>
+                                        <h6>{{ comment.created.date }}</h6>
                                         <a href="#" class="reply_btn">Reply</a>
-                                        <a href="#" class="text-info">Edit</a>
-                                        <a href="#" class="text-danger">Delete</a>
+                                        {% if comment.post.author.id == request.user.id %}
+                                            <a href="{% url 'edit_comment' comment.id %}" class="text-info">Edit</a>
+                                        {% endif %}
+                                        {% if comment.post.author.id == request.user.id %}
+                                            <a href="{% url 'delete_comment' comment.id %}" class="text-danger">Delete</a>
+                                        {% endif %}
+
                                     </div>
                                 </div>
                                 {% empty %}
@@ -104,6 +110,15 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById("editbutton")
+        .addEventListener("click", function() {
+              document.getElementById("welcome").hidden = true;
+              document.getElementById("awesome").hidden = false;
+            },
+            false);
+    </script>
 
 {% endblock %}
 

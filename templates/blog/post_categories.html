@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block post_section %}
+        <section class="post_section news_post">
+        <div class="container">
+            <div class="row post_section_inner">
+
+
+                <!-- Left_sidebar -->
+                <div class="col-lg-8">
+                {% if data %}
+                    <div class="news_left_sidebar">
+                        <!-- News Item -->
+                        {% for post in data %}
+                            <div class="news_item">
+{#                                <h6>{{ post.created_at }}</h6>#}
+                                <h6><span>{{ post.created_at }}</span> <a href="#">Post by : {{ post.author }}</a> <a href="#" class="investing">{{ post.post_category }}</a></h6>
+                                <a href="{% url 'post_details' post.id %}" class="news_heding">{{ post.title }}</a>
+                                <img src="{{ post.post_image.url }}" width="711px" height="450px" alt="">
+                                <p>{{ post.post_content|truncatewords:50 }}</p>
+                                <a href="{% url 'post_details' post.id %}" class="red_btn">Continue Reading <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        {% endfor %}
+
+                        <!-- Pagination Side -->
+                        <div class="col-12 p-0">
+                            <nav class="pagination_area">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-arrow-left"></i></a></li>
+                                    <li class="page-item disabled"><a class="page-link active" href="#" tabindex="-1">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-arrow-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                {% else %}
+                     <div class="alert alert-primary" role="alert">
+                      No Post for This Category Yet!! <a href="/">Back Home</a>
+                    </div>
+                {% endif %}
+                </div><!-- End left_sidebar -->
+
+
+
+            {% include 'includes/right_side_bar.html' %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

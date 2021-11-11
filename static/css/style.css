@@ -2925,17 +2925,17 @@ body a:focus, body a:hover, body .btn:focus, body .btn:hover, body button:focus,
 }
 
 .news_post_2 {
-  padding-top: 110px;
+  padding-top: 0px;
   /* Blog List 3 */
 }
 .news_post_2 .feature_post_area {
-  padding-top: 5px !important;
+  padding-top: 0px !important;
 }
 .news_post_2 .post_section_inner .left_sidebar {
   padding-bottom: 95px;
 }
 .news_post_2 .belarus_fast {
-  padding-top: 25px;
+  padding-top: 0px;
 }
 .news_post_2 .belarus_items:after {
   background-image: -moz-linear-gradient(0deg, #2f03f4 0%, #ee9c23 100%);
@@ -4083,7 +4083,7 @@ body a:focus, body a:hover, body .btn:focus, body .btn:hover, body button:focus,
   }
 
   .news_post_2 {
-    padding-top: 80px;
+    padding-top: 0px;
   }
 
   .full_width_single .nd_2 .angle_bg {

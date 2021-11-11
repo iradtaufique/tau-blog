@@ -12,12 +12,14 @@ class Category(models.Model):
 
 """Model for Posts on the blog"""
 class Post(models.Model):
+    Categories = (('Finance', 'Finance'), ('Business', 'Business'),
+                  ('Technology', 'Technology'), ('Travel', 'Travel'))
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     post_content = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     post_image = models.ImageField(upload_to='post_images')
-    post_category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    post_category = models.CharField(max_length=30, choices=Categories, default=None)
 
     def __str__(self):
         return f'{self.title}'
